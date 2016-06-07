@@ -1,8 +1,11 @@
-function Ball(position, size, context) {
+import { subVector } from './Utils';
+
+export default function Ball (position, size, context) {
   var self = this;
   self.position = position;
   self.size = size;
   self.velocity = { x: 0, y: 0 };
+  self.context = context;
 
   this.handleAcceleration = function(pos) {
     self.velocity = {
@@ -11,13 +14,13 @@ function Ball(position, size, context) {
     }
   }
   this.handlePostion = function() {
-    self.position = utils.subVector(self.position, self.velocity);
+    self.position = subVector(self.position, self.velocity);
   }
   this.draw = function() {
-    context.beginPath();
-    context.arc(self.position.x, self.position.y, self.size, 0, 2 * Math.PI, false);
-    context.fillStyle = 'black';
-    context.fill();
+    self.context.beginPath();
+    self.context.arc(self.position.x, self.position.y, self.size, 0, 2 * Math.PI, false);
+    self.context.fillStyle = 'black';
+    self.context.fill();
   };
   this.update = function(mousePosition) {
     this.handleAcceleration(mousePosition);
